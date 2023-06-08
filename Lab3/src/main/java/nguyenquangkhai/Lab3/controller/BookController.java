@@ -48,9 +48,9 @@ public class BookController {
 
     @GetMapping("/edit/{id}")
     public String editBookForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("categories", categoryService.getAllCategories());
         Book book = bookService.getBookById(id);
         if (book != null) {
+            model.addAttribute("categories", categoryService.getAllCategories());
             model.addAttribute("book", book);
             return "book/edit";
         } else {
@@ -60,7 +60,6 @@ public class BookController {
 
     @PostMapping("/edit")
     public String editBook(@ModelAttribute("book") Book updatedBook, Model model) {
-        model.addAttribute("categories", categoryService.getAllCategories());
         bookService.updateBook(updatedBook);
         return "redirect:/books";
     }
